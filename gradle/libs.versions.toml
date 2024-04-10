@@ -17,6 +17,12 @@ kotlin = "1.9.22"
 
 kotlinxDatetime = "0.4.1"
 
+sqldelight-runtime = "1.5.5"
+sqldelight-coroutinesExtensions = "1.5.5"
+sqldelight-androidDriver = "1.5.5"
+sqldelight-nativeDriver = "1.5.5"
+sqldelight-gradlePlugin = "1.5.5"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -33,8 +39,15 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
+sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight-androidDriver" }
+sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqldelight-nativeDriver" }
+sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight-coroutinesExtensions" }
+sqldelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight-runtime" }
+sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqldelight-gradlePlugin" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+sqlDelight = { id = "com.squareup.sqldelight", version.ref = "sqldelight-runtime" }
