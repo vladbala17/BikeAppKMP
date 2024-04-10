@@ -14,6 +14,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import bikeappkmp.composeapp.generated.resources.Res
 import bikeappkmp.composeapp.generated.resources.compose_multiplatform
+import kotlinx.datetime.Clock
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
