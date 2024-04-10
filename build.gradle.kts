@@ -6,12 +6,10 @@ plugins {
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.sqlDelight) apply false
-    alias(libs.plugins.moko.multiplatform.resources) apply false
 }
 
 buildscript {
     dependencies {
         classpath(libs.sqldelight.gradle.plugin)
-        classpath(libs.moko.resources.generator)
     }
 }
