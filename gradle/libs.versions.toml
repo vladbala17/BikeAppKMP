@@ -18,11 +18,14 @@ kotlin = "1.9.22"
 kotlinxDatetime = "0.4.1"
 
 moko-mvvm-version = "0.16.1"
+
 sqldelight-runtime = "1.5.5"
 sqldelight-coroutinesExtensions = "1.5.5"
 sqldelight-androidDriver = "1.5.5"
 sqldelight-nativeDriver = "1.5.5"
 sqldelight-gradlePlugin = "1.5.5"
+
+voyagerVersion = "1.0.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -50,6 +53,10 @@ sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", v
 sqldelight-coroutines-extensions = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight-coroutinesExtensions" }
 sqldelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight-runtime" }
 sqldelight-gradle-plugin = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqldelight-gradlePlugin" }
+
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
+voyager-bottom-sheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyagerVersion" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

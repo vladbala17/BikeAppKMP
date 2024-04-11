@@ -8,13 +8,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import bikeappkmp.composeapp.generated.resources.Res
+import bikeappkmp.composeapp.generated.resources.rides_active
+import bikeappkmp.composeapp.generated.resources.test_shared_string
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import bikeappkmp.composeapp.generated.resources.Res
-import bikeappkmp.composeapp.generated.resources.compose_multiplatform
-import kotlinx.datetime.Clock
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -24,12 +25,13 @@ fun App() {
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+                Text(stringResource(Res.string.test_shared_string))
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
+                    Image(painterResource(Res.drawable.rides_active), null)
+
                     Text("Compose: $greeting")
                 }
             }

@@ -50,7 +50,12 @@ kotlin {
 
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines.extensions)
+
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.bottom.sheet)
+            implementation(libs.voyager.transitions)
         }
+
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
         }
