@@ -1,5 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -101,10 +99,10 @@ sqldelight {
 }
 
 dependencies {
-    commonMainApi("dev.icerock.moko:mvvm-core:0.16.1")
-    commonMainApi("dev.icerock.moko:mvvm-compose:0.16.1") // api mvvm-core, getViewModel for Compose Multiplatform
-    commonMainApi("dev.icerock.moko:mvvm-flow:0.16.1")
-    commonMainApi("dev.icerock.moko:mvvm-flow-compose:0.16.1") // api mvvm-flow, binding extensions for Compose Multiplatform
+    commonMainApi(libs.moko.mvvm.core)
+    commonMainApi(libs.moko.mvvm.compose) // api mvvm-core, getViewModel for Compose Multiplatform
+    commonMainApi(libs.moko.mvvm.flow)
+    commonMainApi(libs.moko.mvvm.flow.compose) // api mvvm-flow, binding extensions for Compose Multiplatform
 
 }
 
