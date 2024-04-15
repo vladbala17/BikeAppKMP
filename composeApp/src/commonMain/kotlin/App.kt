@@ -25,7 +25,6 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-
 fun App(
     darkTheme: Boolean,
     dynamicColor: Boolean
