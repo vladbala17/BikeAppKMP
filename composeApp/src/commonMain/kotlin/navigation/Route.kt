@@ -1,8 +1,8 @@
 package navigation
 
 object Route {
-    const val BIKES = "Bikes"
-    const val RIDES = "Rides"
+    const val BIKES = "BikesScreen"
+    const val RIDES = "RidesScreen"
     const val SETTINGS = "Settings"
     const val ADD_BIKES = "Add bikes"
     const val BIKE_DETAIL = "Bike detail"
