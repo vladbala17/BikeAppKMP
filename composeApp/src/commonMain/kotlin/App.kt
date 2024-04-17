@@ -29,7 +29,8 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import rides.presentation.list.RidesScreen
-import ui.NoRippleInteractionSource
+import ui.theme.DarkColors
+import ui.theme.LightColors
 
 
 @OptIn(ExperimentalResourceApi::class)
@@ -56,6 +57,7 @@ fun App(
                 },
                 bottomBar = {
                     CustomBottomNavigationBar(
+                        darkTheme,
                         navigator,
                         items = BOTTOM_NAV_ITEM_LIST,
                         onItemClick = {
@@ -76,14 +78,21 @@ fun App(
 
 @Composable
 fun CustomBottomNavigationBar(
+    darkTheme: Boolean,
     navigator: Navigator,
     items: List<BottomNavItem>,
     onItemClick: (Screen) -> Unit
+
 ) {
 
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
-        tonalElevation = 5.dp
+        tonalElevation = 5.dp,
+        containerColor = if (darkTheme) {
+            DarkColors.secondaryContainer
+        } else {
+            LightColors.onPrimaryContainer
+        }
     ) {
         items.forEach { destination ->
             val selected = destination.route == navigator.lastItem
@@ -119,8 +128,7 @@ fun CustomBottomNavigationBar(
                 },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = Color.Transparent
-                ),
-                interactionSource = NoRippleInteractionSource()
+                )
             )
         }
     }
