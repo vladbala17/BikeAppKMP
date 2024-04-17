@@ -47,4 +47,5 @@
     <string name="permission_rationale">"This app needs to post notifications so it can remind you when your default bike needs service</string>
     <string name="grant_permission">Grant permission</string>
     <string name="ok_label">Ok</string>
+    <string name="empty_string"></string>
 </resources>
