@@ -41,7 +41,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import rides.presentation.addride.AddRideScreen
-import rides.presentation.list.RidesScreen
 import ui.theme.DarkColors
 import ui.theme.LightColors
 
@@ -56,8 +55,6 @@ fun App(
         darkTheme = darkTheme,
         dynamicColor = dynamicColor
     ) {
-
-
         val viewModel =
             getViewModel(key = "main-screen", factory = viewModelFactory { MainScreenViewModel() })
 
@@ -116,7 +113,6 @@ fun CustomBottomNavigationBar(
     onItemClick: (Screen) -> Unit
 
 ) {
-
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         tonalElevation = 5.dp,
@@ -127,7 +123,6 @@ fun CustomBottomNavigationBar(
         }
     ) {
         items.forEach { destination ->
-
             val selected = destination.route.key == navigator.lastItem.key
             NavigationBarItem(
                 selected = selected,
@@ -218,13 +213,4 @@ fun CustomTopNavigationBar(
             }
         }
     )
-
-}
-
-@Composable
-fun NavigationScreen() {
-    Navigator(screen = RidesScreen()) { navigator: Navigator ->
-        CurrentScreen()
-
-    }
 }
