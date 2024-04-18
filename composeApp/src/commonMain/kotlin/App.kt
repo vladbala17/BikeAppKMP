@@ -11,7 +11,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -19,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import bikeappkmp.composeapp.generated.resources.Res
 import bikeappkmp.composeapp.generated.resources.icon_add
@@ -41,8 +39,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import rides.presentation.addride.AddRideScreen
-import ui.theme.DarkColors
-import ui.theme.LightColors
 
 
 @OptIn(ExperimentalResourceApi::class)
@@ -116,11 +112,6 @@ fun CustomBottomNavigationBar(
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         tonalElevation = 5.dp,
-        containerColor = if (darkTheme) {
-            DarkColors.secondaryContainer
-        } else {
-            LightColors.onPrimaryContainer
-        }
     ) {
         items.forEach { destination ->
             val selected = destination.route.key == navigator.lastItem.key
@@ -130,34 +121,19 @@ fun CustomBottomNavigationBar(
                     onItemClick(destination.route)
                 },
                 icon = {
-                    if (selected) {
-                        Icon(
-                            painter = painterResource(destination.selectedIcon),
-                            contentDescription = stringResource(destination.titleId),
-                            tint = Color.Blue
-                        )
-                    } else {
                         Icon(
                             painter = painterResource(destination.unselectedIcon),
                             contentDescription = stringResource(destination.titleId),
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
-                    }
                 },
                 label = {
                     Text(
                         text = stringResource(destination.titleId),
-                        color = if (selected) {
-                            Color.Blue
-                        } else {
-                            Color.White
-                        },
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.Transparent
                 )
-            )
         }
     }
 
