@@ -1,7 +1,6 @@
 package settings.presentation.components
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,15 +19,12 @@ fun Label(title: String = "", isMandatory: Boolean = false, modifier: Modifier =
     Row(modifier = modifier) {
         Text(
             text = title,
-            style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onSecondary,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
         if (isMandatory) {
             Icon(
                 painter = painterResource(Res.drawable.icon_required),
                 contentDescription = stringResource(Res.string.distance_units_label),
-                tint = MaterialTheme.colors.onSecondary,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
         }

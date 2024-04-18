@@ -50,7 +50,6 @@ fun DropDownField(
                 Icon(
                     painter = painterResource(resource = icon),
                     contentDescription = null,
-                    tint = MaterialTheme.colors.onPrimary,
                     modifier = Modifier.padding(all = 16.dp)
                 )
             },

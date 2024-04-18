@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -64,7 +63,6 @@ fun CustomTextField(
                 onValueChange(it)
             },
             readOnly = readOnly,
-            textStyle = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onPrimary),
             maxLines = maxLine,
             singleLine = singleLine,
             interactionSource = interactionSource,
@@ -82,7 +80,6 @@ fun CustomTextField(
                 keyboardType = keyboardType,
                 imeAction = imeAction
             ),
-            cursorBrush = SolidColor(MaterialTheme.colors.onPrimary),
             decorationBox = { innerTextField ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -93,7 +90,7 @@ fun CustomTextField(
                             color = colorBorder
                         )
                         .background(
-                            color = MaterialTheme.colors.surface,
+                            color = MaterialTheme.colors.onPrimary,
                             shape = RoundedCornerShape(4.dp)
                         )
                         .focusRequester(focusRequester)
@@ -111,8 +108,6 @@ fun CustomTextField(
                         if (text.isEmpty()) {
                             Text(
                                 text = placeHolder,
-                                style = MaterialTheme.typography.h4,
-                                color = MaterialTheme.colors.onPrimary,
                             )
                         }
                         Box(modifier = Modifier.fillMaxWidth()) {
@@ -131,7 +126,6 @@ fun CustomTextField(
             Text(
                 text = if (isError) errorMessage!! else "",
                 color = MaterialTheme.colors.error,
-                style = MaterialTheme.typography.h6,
                 modifier = modifier
             )
         }

@@ -41,7 +41,7 @@ import org.jetbrains.compose.resources.stringResource
 import rides.presentation.addride.AddRideScreen
 
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun App(
     darkTheme: Boolean,
@@ -51,18 +51,18 @@ fun App(
         darkTheme = darkTheme,
         dynamicColor = dynamicColor
     ) {
-        val viewModel =
+        val mainScreenViewModel =
             getViewModel(key = "main-screen", factory = viewModelFactory { MainScreenViewModel() })
 
-        val state by viewModel.state.collectAsState()
+        val mainScreenState by mainScreenViewModel.state.collectAsState()
 
         Navigator(BikesScreen()) { navigator ->
             Scaffold(
                 topBar = {
-                    CustomTopNavigationBar(state = state,
+                    CustomTopNavigationBar(state = mainScreenState,
                         onBackArrowClick = {
                             navigator.pop()
-                            viewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
+                            mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         },
                         onAddItemClick = {
                             if (navigator.lastItem.key == BOTTOM_NAV_ITEM_LIST[0].route.key) {
@@ -70,21 +70,21 @@ fun App(
                             } else {
                                 navigator.push(AddRideScreen())
                             }
-                            viewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
+                            mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         },
                         onCloseClick = {
                             navigator.pop()
-                            viewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
+                            mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         })
                 },
                 bottomBar = {
-                    if (state.showBottomNavigationBar) {
+                    if (mainScreenState.showBottomNavigationBar) {
                         CustomBottomNavigationBar(
                             navigator,
                             items = BOTTOM_NAV_ITEM_LIST,
-                            onItemClick = {
-                                navigator.push(it)
-                                viewModel.onEvent(MainScreenEvent.OnPageChanged(it.key))
+                            onItemClick = { screen ->
+                                navigator.push(screen)
+                                mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(screen.key))
                             })
                     }
                 }
@@ -119,11 +119,11 @@ fun CustomBottomNavigationBar(
                     onItemClick(destination.route)
                 },
                 icon = {
-                        Icon(
-                            painter = painterResource(destination.unselectedIcon),
-                            contentDescription = stringResource(destination.titleId),
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
+                    Icon(
+                        painter = painterResource(destination.unselectedIcon),
+                        contentDescription = stringResource(destination.titleId),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
                 },
                 label = {
                     Text(
@@ -131,7 +131,7 @@ fun CustomBottomNavigationBar(
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 },
-                )
+            )
         }
     }
 
