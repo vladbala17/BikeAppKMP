@@ -1,4 +1,3 @@
-package com.vlad.bikegarage.bikes.presentation.addbikes.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -9,27 +8,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import com.vlad.bikegarage.R
+import bikeappkmp.composeapp.generated.resources.Res
+import bikeappkmp.composeapp.generated.resources.bike_mtb_big_wheels
+import bikeappkmp.composeapp.generated.resources.bike_mtb_middle
+import bikeappkmp.composeapp.generated.resources.bike_mtb_over
+import bikeappkmp.composeapp.generated.resources.mtb_bike_name
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MTBBike(bodyColor: Color = Color.Red, modifier: Modifier) {
     Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
         Image(
-            painter = painterResource(id = R.drawable.bike_mtb_big_wheels),
-            contentDescription = stringResource(R.string.mtb_bike_name),
+            painter = painterResource(Res.drawable.bike_mtb_big_wheels),
+            contentDescription = stringResource(Res.string.mtb_bike_name),
             modifier = Modifier.aspectRatio(16f / 9f),
         )
         Image(
-            painter = painterResource(id = R.drawable.bike_mtb_middle),
-            contentDescription = stringResource(R.string.mtb_bike_name),
+            painter = painterResource(Res.drawable.bike_mtb_middle),
+            contentDescription = stringResource(Res.string.mtb_bike_name),
             colorFilter = ColorFilter.tint(bodyColor),
             modifier = Modifier.aspectRatio(16f / 9f)
         )
         Image(
-            painter = painterResource(id = R.drawable.bike_mtb_over),
-            contentDescription = stringResource(R.string.mtb_bike_name),
+            painter = painterResource(Res.drawable.bike_mtb_over),
+            contentDescription = stringResource(Res.string.mtb_bike_name),
             modifier = Modifier.aspectRatio(16f / 9f)
         )
     }

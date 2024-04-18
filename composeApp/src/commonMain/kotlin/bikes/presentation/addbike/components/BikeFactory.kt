@@ -2,12 +2,12 @@ package bikes.presentation.addbike.components
 
 import ElectricBike
 import HybridBike
+import MTBBike
 import RoadBike
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import bikes.domain.model.BikeType
-import com.vlad.bikegarage.bikes.presentation.addbikes.components.MTBBike
 
 @Composable
 fun BikeFactory(
