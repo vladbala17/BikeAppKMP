@@ -76,5 +76,9 @@ val LightBrown = Color(0xFFBEA089)
 val Pink = Color(0xFFF4BBFB)
 val LightBlue = Color(0xFF619EB3)
 val Brown = Color(0xFF664C40)
+val GrayBlue = Color(0xFF5A6C9E)
+val Blue = Color(0xFF0066F5)
+val OceanBlue = Color(0xFF121726)
+
 
 val seed = Color(0xFF222C48)
