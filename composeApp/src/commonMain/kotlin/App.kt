@@ -164,7 +164,8 @@ fun CustomTopNavigationBar(
             if (state.showActionText) {
                 Text(
                     text = stringResource(state.actionText),
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier.padding(end = 8.dp),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
             if (state.showActionIconX) {
