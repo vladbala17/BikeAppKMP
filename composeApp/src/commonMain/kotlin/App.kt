@@ -80,7 +80,6 @@ fun App(
                 bottomBar = {
                     if (state.showBottomNavigationBar) {
                         CustomBottomNavigationBar(
-                            darkTheme,
                             navigator,
                             items = BOTTOM_NAV_ITEM_LIST,
                             onItemClick = {
@@ -103,7 +102,6 @@ fun App(
 
 @Composable
 fun CustomBottomNavigationBar(
-    darkTheme: Boolean,
     navigator: Navigator,
     items: List<BottomNavItem>,
     onItemClick: (Screen) -> Unit
