@@ -21,7 +21,7 @@ import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
 @Composable
 fun CustomDatePicker(onDateSelected: (Long) -> Unit = {}, onDismissDialog: () -> Unit = {}) {
     val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates {
