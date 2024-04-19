@@ -20,8 +20,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bikeappkmp.composeapp.generated.resources.Res
+import bikeappkmp.composeapp.generated.resources.bikes_title
 import bikeappkmp.composeapp.generated.resources.icon_add
+import bikeappkmp.composeapp.generated.resources.icon_bikes_inactive
 import bikeappkmp.composeapp.generated.resources.icon_x
+import bikeappkmp.composeapp.generated.resources.rides_active
+import bikeappkmp.composeapp.generated.resources.rides_inactive
+import bikeappkmp.composeapp.generated.resources.rides_title
+import bikeappkmp.composeapp.generated.resources.settings_active
+import bikeappkmp.composeapp.generated.resources.settings_inactive
+import bikeappkmp.composeapp.generated.resources.settings_title
 import bikes.presentation.addbike.AddBikeScreen
 import bikes.presentation.list.BikesScreen
 import cafe.adriel.voyager.core.screen.Screen
@@ -30,7 +38,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import core.presentation.BikesTheme
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
-import navigation.BOTTOM_NAV_ITEM_LIST
+import di.AppModule
 import navigation.BottomNavItem
 import navigation.MainScreenEvent
 import navigation.MainScreenState
@@ -39,22 +47,50 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import rides.presentation.addride.AddRideScreen
+import rides.presentation.list.RidesScreen
+import settings.data.PreferenceRepoImpl
+import settings.presentation.SettingsScreen
 
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun App(
     darkTheme: Boolean,
-    dynamicColor: Boolean
+    dynamicColor: Boolean,
+    appModule: AppModule
 ) {
     BikesTheme(
         darkTheme = darkTheme,
         dynamicColor = dynamicColor
     ) {
+
         val mainScreenViewModel =
             getViewModel(key = "main-screen", factory = viewModelFactory { MainScreenViewModel() })
 
+        val userPrefs = PreferenceRepoImpl(appModule.localPreferences)
         val mainScreenState by mainScreenViewModel.state.collectAsState()
+
+        val bottomNavItemList = listOf(
+            BottomNavItem(
+                route = BikesScreen(),
+                selectedIcon = Res.drawable.icon_bikes_inactive,
+                unselectedIcon = Res.drawable.icon_bikes_inactive,
+                titleId = Res.string.bikes_title
+            ),
+            BottomNavItem(
+                route = RidesScreen(),
+                selectedIcon = Res.drawable.rides_active,
+                unselectedIcon = Res.drawable.rides_inactive,
+                titleId = Res.string.rides_title
+            ),
+            BottomNavItem(
+                route = SettingsScreen(userPrefs),
+                selectedIcon = Res.drawable.settings_active,
+                unselectedIcon = Res.drawable.settings_inactive,
+                titleId = Res.string.settings_title
+            )
+        )
+
 
         Navigator(BikesScreen()) { navigator ->
             Scaffold(
@@ -65,7 +101,7 @@ fun App(
                             mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         },
                         onAddItemClick = {
-                            if (navigator.lastItem.key == BOTTOM_NAV_ITEM_LIST[0].route.key) {
+                            if (navigator.lastItem.key == bottomNavItemList[0].route.key) {
                                 navigator.push(AddBikeScreen())
                             } else {
                                 navigator.push(AddRideScreen())
@@ -81,7 +117,7 @@ fun App(
                     if (mainScreenState.showBottomNavigationBar) {
                         CustomBottomNavigationBar(
                             navigator,
-                            items = BOTTOM_NAV_ITEM_LIST,
+                            items = bottomNavItemList,
                             onItemClick = { screen ->
                                 navigator.push(screen)
                                 mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(screen.key))

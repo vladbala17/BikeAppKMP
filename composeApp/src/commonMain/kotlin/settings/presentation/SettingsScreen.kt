@@ -23,19 +23,22 @@ import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import settings.domain.PreferencesRepo
 import settings.presentation.components.DefaultSwitch
 import settings.presentation.components.DropDownField
 import settings.presentation.components.Label
 import settings.presentation.components.NumericTextField
 
 @OptIn(ExperimentalResourceApi::class)
-class SettingsScreen : Screen {
+data class SettingsScreen(
+    private val userPreferences: PreferencesRepo
+) : Screen {
 
     @Composable
     override fun Content() {
         val viewModel = getViewModel(
             key = "settings-screen",
-            factory = viewModelFactory { SettingsViewModel() })
+            factory = viewModelFactory { SettingsViewModel(userPreferences) })
         val state by viewModel.state.collectAsState()
 
         Column(
