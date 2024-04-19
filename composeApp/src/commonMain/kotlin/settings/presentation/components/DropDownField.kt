@@ -53,7 +53,7 @@ fun DropDownField(
                     modifier = Modifier.padding(all = 16.dp)
                 )
             },
-            modifier = modifier
+            modifier = modifier.menuAnchor()
         )
 
         ExposedDropdownMenu(

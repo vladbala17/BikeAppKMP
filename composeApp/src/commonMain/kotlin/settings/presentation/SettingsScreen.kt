@@ -52,6 +52,7 @@ data class SettingsScreen(
                 true,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
+
             DropDownField(
                 listOf(
                     stringResource(Res.string.distance_unit_km),

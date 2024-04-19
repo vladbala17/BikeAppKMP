@@ -55,7 +55,6 @@ fun CustomTextField(
         FocusRequester()
     }
     val colorBorder = if (isError) MaterialTheme.colors.error else MaterialTheme.colors.onSecondary
-
     Column {
         BasicTextField(
             value = text,

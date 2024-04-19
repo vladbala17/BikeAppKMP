@@ -10,7 +10,8 @@ import settings.domain.PreferencesRepo
 
 class SettingsViewModel(private val preferences: PreferencesRepo) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
-    val state =  _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), SettingsState())
+    val state =
+        _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), SettingsState())
 
     private var getBikesJob: Job? = null
 
@@ -49,20 +50,21 @@ class SettingsViewModel(private val preferences: PreferencesRepo) : ViewModel() 
                 preferences.saveEnabledNotifications(_state.value.isServiceNotifyEnabled)
             }
 
-//            is SettingsEvent.OnServiceIntervalReminderSet -> {
-//                _state.update { newState ->
-//
-//                    //Use case not needed because the value is already a number
-//                    newState.copy(serviceIntervalReminder = filterOutDigits(event.distanceIntervalReminder.toString()))
-//                }
-//                preferences.saveServiceInterval(filterOutDigits(event.distanceIntervalReminder.toString()))
-//            }
+            is SettingsEvent.OnServiceIntervalReminderSet -> {
+                _state.update { newState ->
+
+                    //Use case not needed because the value is already a number
+                    newState.copy(serviceIntervalReminder = event.distanceIntervalReminder)
+                }
+                preferences.saveServiceInterval(event.distanceIntervalReminder)
+            }
 
             SettingsEvent.OnShowPermissionDialog -> {
                 _state.update { newState ->
                     newState.copy(showPermissionDialog = true)
                 }
             }
+
             SettingsEvent.OnDismissPermissionDialog -> {
                 _state.update { newState ->
                     newState.copy(showPermissionDialog = false)
