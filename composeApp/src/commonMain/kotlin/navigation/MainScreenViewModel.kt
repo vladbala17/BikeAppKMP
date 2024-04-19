@@ -96,7 +96,7 @@ class MainScreenViewModel : ViewModel() {
                     oldState.copy(
                         title = Res.string.settings_title,
                         showNavigationIcon = true,
-                        showBottomNavigationBar = false,
+                        showBottomNavigationBar = true,
                         actionText = Res.string.empty_string,
                         showActionIconAdd = false
                     )
