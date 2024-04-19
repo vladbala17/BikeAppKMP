@@ -1,3 +1,35 @@
 CREATE TABLE bikeEntity (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+    bikeId INTEGER AS Int NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    serviceIn INTEGER AS Int NOT NULL,
+    isDefault INTEGER AS Int NOT NULL,
+    bikeType TEXT NOT NULL,
+    wheelSize TEXT NOT NULL,
+    bikeColor INTEGER AS Int NOT NULL
 );
+
+insertBikeEntity:
+INSERT OR REPLACE
+INTO bikeEntity(
+bikeId,
+name,
+serviceIn,
+isDefault,
+bikeType,
+wheelSize,
+bikeColor
+) VALUES (?,?,?,?,?,?,?);
+
+getBikeById:
+SELECT * FROM bikeEntity WHERE bikeId =: id;
+
+deleteBike:
+DELETE FROM bikeEntity
+WHERE name =: name;
+
+getBikes:
+SELECT *
+FROM bikeEntity;
+
+getBikeByName:
+SELECT * FROM bikeEntity WHERE name =: name;

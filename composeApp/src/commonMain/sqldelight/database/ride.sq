@@ -1,0 +1,34 @@
+CREATE TABLE rideEntity (
+    rideId INTEGER AS Int NOT NULL PRIMARY KEY AUTOINCREMENT,
+    rideName TEXT NOT NULL,
+    bikeName TEXT NOT NULL,
+    bikeType TEXT NOT NULL,
+    distance INTEGER AS Int NOT NULL,
+    durationHours INTEGER AS Int NOT NULL,
+    durationMinutes INTEGER AS Int NOT NULL,
+    date INTEGER NOT NULL
+);
+
+insertRideEntity:
+INSERT OR REPLACE
+INTO rideEntity(
+rideId,
+rideName,
+bikeName,
+bikeType,
+distance,
+durationHours,
+durationMinutes,
+date
+) VALUES (?,?,?,?,?,?,?,?);
+
+getRideById:
+SELECT * FROM rideEntity WHERE rideId =: id;
+
+deleteRide:
+DELETE FROM rideEntity
+WHERE rideName =: name;
+
+getRides:
+SELECT *
+FROM rideEntity;
