@@ -79,7 +79,7 @@ class BikesScreen(
                             viewModel.onEvent(BikesEvent.OnDeleteBike(bike.name))
                         },
                         onBikeItemClick = {
-                            navigator.push(BikeDetailScreen(bikeId = bike.id))
+                            navigator.push(BikeDetailScreen(bikeId = bike.id, bikesRepository))
                         }
                     )
                 }

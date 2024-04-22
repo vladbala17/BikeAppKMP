@@ -30,6 +30,9 @@ import bikeappkmp.composeapp.generated.resources.service_in_label
 import bikeappkmp.composeapp.generated.resources.total_rides_distance_label
 import bikeappkmp.composeapp.generated.resources.total_rides_label
 import bikeappkmp.composeapp.generated.resources.wheels_label
+import bikes.domain.BikesDataSource
+import bikes.domain.use_case.GetBikeDetail
+import bikes.domain.use_case.GetRidesForBike
 import bikes.presentation.addbike.components.BikeFactory
 import bikes.presentation.list.components.LinearProgressBar
 import cafe.adriel.voyager.core.screen.Screen
@@ -41,12 +44,16 @@ import rides.domain.model.Ride
 import rides.presentation.list.components.RideCard
 
 @OptIn(ExperimentalResourceApi::class)
-data class BikeDetailScreen(val bikeId: Int = 0) : Screen {
+data class BikeDetailScreen(val bikeId: Int = 0, val bikesRepo: BikesDataSource) : Screen {
+
+    private val bikeDetailUseCases =
+        BikeDetailUseCases(GetBikeDetail(bikesRepo), GetRidesForBike(bikesRepo))
+
     @Composable
     override fun Content() {
         val viewModel = getViewModel(
             key = "bike-detail-screen",
-            factory = viewModelFactory { BikeDetailViewModel() })
+            factory = viewModelFactory { BikeDetailViewModel(bikeId = bikeId, bikeDetailUseCases) })
         val state by viewModel.state.collectAsState()
 
         Column(
