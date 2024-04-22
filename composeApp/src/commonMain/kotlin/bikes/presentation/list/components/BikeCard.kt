@@ -28,7 +28,6 @@ import bikes.presentation.addbike.components.BikeFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import ui.theme.OceanBlue
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -40,14 +39,13 @@ fun BikeCard(
     bikeType: BikeType = BikeType.Electric,
     bikeColor: Color = Color.DarkGray,
     usageUntilService: Float = 0.8f,
-    backgroundColor: Color = OceanBlue,
     defaultUnit: String = "",
     onEditBikeMenuClick: (Int) -> Unit = {},
     onDeleteBikeMenuClick: (String) -> Unit = {},
     onBikeCardClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    Card(backgroundColor = backgroundColor, modifier = modifier) {
+    Card(modifier = modifier) {
         var displayMenu by remember { mutableStateOf(false) }
         Column(modifier = Modifier
             .padding(16.dp)
