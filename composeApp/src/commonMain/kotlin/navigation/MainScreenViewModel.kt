@@ -44,7 +44,8 @@ class MainScreenViewModel : ViewModel() {
                         showActionIconAdd = true,
                         showActionText = true,
                         actionText = Res.string.add_bike_label,
-                        showActionIconX = false
+                        showActionIconX = false,
+                        showMenuIcon = false
                     )
                 }
             }
@@ -62,7 +63,20 @@ class MainScreenViewModel : ViewModel() {
                 }
             }
 
-            Route.BIKE_DETAIL -> {}
+            Route.BIKE_DETAIL -> {
+                _state.update { oldState ->
+                    oldState.copy(
+                        title = Res.string.empty_string,
+                        showNavigationIcon = true,
+                        showBottomNavigationBar = false,
+                        showActionIconAdd = false,
+                        showActionText = false,
+                        actionText = Res.string.add_ride_label,
+                        showActionIconX = false,
+                        showMenuIcon = true
+                    )
+                }
+            }
             Route.RIDES -> {
                 _state.update { oldState ->
                     oldState.copy(

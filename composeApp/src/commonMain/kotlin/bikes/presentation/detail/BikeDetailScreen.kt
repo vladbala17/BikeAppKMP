@@ -1,6 +1,5 @@
 package bikes.presentation.detail
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,7 +52,6 @@ data class BikeDetailScreen(val bikeId: Int = 0) : Screen {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(androidx.compose.material.MaterialTheme.colors.secondaryVariant)
                 .padding(8.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally

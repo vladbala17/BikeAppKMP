@@ -23,6 +23,7 @@ import bikeappkmp.composeapp.generated.resources.Res
 import bikeappkmp.composeapp.generated.resources.bikes_title
 import bikeappkmp.composeapp.generated.resources.icon_add
 import bikeappkmp.composeapp.generated.resources.icon_bikes_inactive
+import bikeappkmp.composeapp.generated.resources.icon_more
 import bikeappkmp.composeapp.generated.resources.icon_x
 import bikeappkmp.composeapp.generated.resources.rides_active
 import bikeappkmp.composeapp.generated.resources.rides_inactive
@@ -204,6 +205,15 @@ fun CustomTopNavigationBar(
                     Icon(
                         painter = painterResource(Res.drawable.icon_x),
                         contentDescription = "Close",
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                }
+            }
+            if (state.showMenuIcon) {
+                IconButton(onClick = onCloseClick) {
+                    Icon(
+                        painter = painterResource(Res.drawable.icon_more),
+                        contentDescription = "Edit",
                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
