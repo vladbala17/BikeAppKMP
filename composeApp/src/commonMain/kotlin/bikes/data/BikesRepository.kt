@@ -37,7 +37,7 @@ class BikesRepository(db: BikesDatabase) : BikesDataSource {
     }
 
     override suspend fun getAllRidesForBike(bikeName: String): List<Ride> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 
     override suspend fun getBikeByName(bikeName: String): Bike {
@@ -45,6 +45,7 @@ class BikesRepository(db: BikesDatabase) : BikesDataSource {
     }
 
     override fun getBikes(): Flow<List<Bike>> {
-        return queries.getBikes().asFlow().mapToList().map { it.map { it.toBike() } }
+        return queries.getBikes().asFlow().mapToList()
+            .map { bikeEntities -> bikeEntities.map { bikeEntity -> bikeEntity.toBike() } }
     }
 }

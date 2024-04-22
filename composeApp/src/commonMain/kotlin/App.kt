@@ -72,7 +72,7 @@ fun App(
 
         val bottomNavItemList = listOf(
             BottomNavItem(
-                route = BikesScreen(),
+                route = BikesScreen(appModule.bikesDataSource, userPrefs),
                 selectedIcon = Res.drawable.icon_bikes_inactive,
                 unselectedIcon = Res.drawable.icon_bikes_inactive,
                 titleId = Res.string.bikes_title
@@ -92,25 +92,22 @@ fun App(
         )
 
 
-        Navigator(BikesScreen()) { navigator ->
+        Navigator(BikesScreen(appModule.bikesDataSource, userPrefs)) { navigator ->
             Scaffold(
                 topBar = {
                     CustomTopNavigationBar(state = mainScreenState,
                         onBackArrowClick = {
                             navigator.pop()
-                            mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         },
                         onAddItemClick = {
                             if (navigator.lastItem.key == bottomNavItemList[0].route.key) {
-                                navigator.push(AddBikeScreen())
+                                navigator.push(AddBikeScreen(appModule.bikesDataSource, userPrefs))
                             } else {
                                 navigator.push(AddRideScreen())
                             }
-                            mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         },
                         onCloseClick = {
                             navigator.pop()
-                            mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                         })
                 },
                 bottomBar = {
@@ -120,7 +117,6 @@ fun App(
                             items = bottomNavItemList,
                             onItemClick = { screen ->
                                 navigator.push(screen)
-                                mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(screen.key))
                             })
                     }
                 }
@@ -129,6 +125,7 @@ fun App(
                     modifier = Modifier.padding(it)
                 ) {
                     CurrentScreen()
+                    mainScreenViewModel.onEvent(MainScreenEvent.OnPageChanged(navigator.lastItem.key))
                 }
             }
         }

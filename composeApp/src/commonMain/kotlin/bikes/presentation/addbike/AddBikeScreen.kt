@@ -24,14 +24,23 @@ import bikeappkmp.composeapp.generated.resources.edit_bike_action
 import bikeappkmp.composeapp.generated.resources.icon_dropdown
 import bikeappkmp.composeapp.generated.resources.service_in_label
 import bikeappkmp.composeapp.generated.resources.wheel_size_label
+import bikes.domain.BikesDataSource
+import bikes.domain.use_case.AddBike
+import bikes.domain.use_case.GetBikeDetail
+import bikes.domain.use_case.ValidateBikeName
+import bikes.domain.use_case.ValidateDistance
 import bikes.presentation.addbike.components.BikesPager
 import bikes.presentation.addbike.components.HorizontalColorPicker
+import bikes.presentation.detail.AddBikeUseCases
 import bikes.presentation.list.components.ActionButton
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import settings.domain.PreferencesRepo
 import settings.presentation.components.CustomTextField
 import settings.presentation.components.DefaultSwitch
 import settings.presentation.components.DropDownField
@@ -40,16 +49,33 @@ import settings.presentation.components.NumericTextField
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 data class AddBikeScreen(
+    val bikesDataSource: BikesDataSource,
+    val preferencesRepo: PreferencesRepo,
     val bikeId: Int = 0,
     val modifier: Modifier = Modifier,
-    val onAddBike: () -> Unit = {}
 ) : Screen {
+
+    private val addBikeUseCases = AddBikeUseCases(
+        AddBike(bikesDataSource),
+        GetBikeDetail(bikesDataSource),
+        ValidateBikeName(),
+        ValidateDistance()
+    )
+
+
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
 
         val viewModel = getViewModel(
             key = "add-bike-screen",
-            factory = viewModelFactory { AddBikeViewModel() })
+            factory = viewModelFactory {
+                AddBikeViewModel(
+                    bikeId = bikeId,
+                    addBikeUseCases,
+                    preferencesRepo
+                )
+            })
         val state by viewModel.state.collectAsState()
 
         Column(
@@ -138,7 +164,7 @@ data class AddBikeScreen(
             )
         }
         if (state.isValidatedSuccessfully) {
-            onAddBike()
+            navigator.pop()
         }
     }
 }
