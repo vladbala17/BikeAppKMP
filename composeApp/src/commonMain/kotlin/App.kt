@@ -79,7 +79,11 @@ fun App(
                 titleId = Res.string.bikes_title
             ),
             BottomNavItem(
-                route = RidesScreen(),
+                route = RidesScreen(
+                    ridesRepository = appModule.ridesDataSource,
+                    bikesRepository = appModule.bikesDataSource,
+                    localPreferencesRepo = userPrefs
+                ),
                 selectedIcon = Res.drawable.rides_active,
                 unselectedIcon = Res.drawable.rides_inactive,
                 titleId = Res.string.rides_title
@@ -104,7 +108,13 @@ fun App(
                             if (navigator.lastItem.key == bottomNavItemList[0].route.key) {
                                 navigator.push(AddBikeScreen(appModule.bikesDataSource, userPrefs))
                             } else {
-                                navigator.push(AddRideScreen())
+                                navigator.push(
+                                    AddRideScreen(
+                                        ridesDataSource = appModule.ridesDataSource,
+                                        bikesDataSource = appModule.bikesDataSource,
+                                        preferencesRepo = userPrefs
+                                    )
+                                )
                             }
                         },
                         onCloseClick = {
