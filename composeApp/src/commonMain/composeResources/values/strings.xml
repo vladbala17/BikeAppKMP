@@ -22,7 +22,7 @@
     <string name="mtb_bike_name">mtb bike</string>
     <string name="road_bike_name">road bike</string>
     <string name="hybrid_bike_name">hybrid bike</string>
-    <string name="wheels_label">"Wheels: "</string>
+    <string name="wheels_label">Wheels: </string>
     <string name="delete_menu_action">Delete</string>
     <string name="edit_menu_action">Edit</string>
     <string name="edit_bike_action">Save</string>
