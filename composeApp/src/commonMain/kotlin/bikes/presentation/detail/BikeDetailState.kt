@@ -6,6 +6,7 @@ import rides.domain.model.Ride
 
 data class BikeDetailState(
     val bikeId: String = "",
+    val bikeName: String = "",
     val bikeType: BikeType = BikeType.Electric,
     val bikeColor: Color = Color.Red,
     val wheelSize: String = "",

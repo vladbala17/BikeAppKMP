@@ -15,5 +15,6 @@ data class MainScreenState(
     val showActionIconX: Boolean = false,
     val showActionText: Boolean = true,
     val showBottomNavigationBar: Boolean = true,
-    val showMenuIcon: Boolean = false
+    val showMenuIcon: Boolean = false,
+    val showTopAppBar: Boolean = true
 )

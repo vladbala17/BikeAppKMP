@@ -28,6 +28,7 @@ class BikeDetailViewModel(
                 _state.update { newState ->
                     newState.copy(
                         bikeColor = Color(bike.bikeColor),
+                        bikeName = bike.name,
                         wheelSize = bike.wheelSize,
                         bikeType = bike.bikeType,
                         rideList = rideList,

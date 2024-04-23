@@ -189,56 +189,58 @@ fun CustomTopNavigationBar(
     onAddItemClick: () -> Unit,
     onCloseClick: () -> Unit
 ) {
-    TopAppBar(
-        title = {
-            Text(text = stringResource(state.title))
-        },
-        actions = {
-            if (state.showActionIconAdd) {
-                IconButton(onClick = onAddItemClick) {
-                    Icon(
-                        painter = painterResource(Res.drawable.icon_add),
-                        contentDescription = "Add",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
+    if (state.showTopAppBar) {
+        TopAppBar(
+            title = {
+                Text(text = stringResource(state.title))
+            },
+            actions = {
+                if (state.showActionIconAdd) {
+                    IconButton(onClick = onAddItemClick) {
+                        Icon(
+                            painter = painterResource(Res.drawable.icon_add),
+                            contentDescription = "Add",
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    }
+                }
+                if (state.showActionText) {
+                    Text(
+                        text = stringResource(state.actionText),
+                        modifier = Modifier.padding(end = 8.dp),
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
-            }
-            if (state.showActionText) {
-                Text(
-                    text = stringResource(state.actionText),
-                    modifier = Modifier.padding(end = 8.dp),
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            }
-            if (state.showActionIconX) {
-                IconButton(onClick = onCloseClick) {
-                    Icon(
-                        painter = painterResource(Res.drawable.icon_x),
-                        contentDescription = "Close",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
+                if (state.showActionIconX) {
+                    IconButton(onClick = onCloseClick) {
+                        Icon(
+                            painter = painterResource(Res.drawable.icon_x),
+                            contentDescription = "Close",
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    }
+                }
+                if (state.showMenuIcon) {
+                    IconButton(onClick = onCloseClick) {
+                        Icon(
+                            painter = painterResource(Res.drawable.icon_more),
+                            contentDescription = "Edit",
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    }
+                }
+            },
+            navigationIcon = {
+                if (state.showNavigationIcon) {
+                    IconButton(onClick = onBackArrowClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Sharp.ArrowBack,
+                            contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    }
                 }
             }
-            if (state.showMenuIcon) {
-                IconButton(onClick = onCloseClick) {
-                    Icon(
-                        painter = painterResource(Res.drawable.icon_more),
-                        contentDescription = "Edit",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                }
-            }
-        },
-        navigationIcon = {
-            if (state.showNavigationIcon) {
-                IconButton(onClick = onBackArrowClick) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Sharp.ArrowBack,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                }
-            }
-        }
-    )
+        )
+    }
 }

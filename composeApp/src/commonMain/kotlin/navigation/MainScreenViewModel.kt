@@ -45,7 +45,8 @@ class MainScreenViewModel : ViewModel() {
                         showActionText = true,
                         actionText = Res.string.add_bike_label,
                         showActionIconX = false,
-                        showMenuIcon = false
+                        showMenuIcon = false,
+                        showTopAppBar = true
                     )
                 }
             }
@@ -73,7 +74,8 @@ class MainScreenViewModel : ViewModel() {
                         showActionText = false,
                         actionText = Res.string.add_ride_label,
                         showActionIconX = false,
-                        showMenuIcon = true
+                        showMenuIcon = true,
+                        showTopAppBar = false
                     )
                 }
             }
