@@ -165,7 +165,7 @@ private fun RowScope.Bar(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
             .padding(horizontal = 5.dp)
-            .weight(1f)
+            .fillMaxWidth(0.25f)
             .height(barHeight.dp)
             .background(barColor)
     ) {

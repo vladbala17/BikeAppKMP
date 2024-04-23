@@ -77,7 +77,7 @@ data class RidesScreen(
                 BarChart(inputData = state.rideStatistic, totalKm = state.totalKm)
 
                 state.rides.forEach { (month, ridesForMonth) ->
-                    Text(text = month)
+                    Text(text = month.uppercase())
                     ridesForMonth.forEach { ride: Ride ->
                         RideListItem(
                             ride = ride,

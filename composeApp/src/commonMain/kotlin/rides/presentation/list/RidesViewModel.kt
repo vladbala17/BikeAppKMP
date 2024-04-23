@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import rides.domain.model.Ride
 import rides.domain.model.RideChartRow
-import util.convertMillisToDateMonthName
+import util.convertMillisToDateMonthNumber
+import util.convertMonthNumberToMonthName
 
 class RidesViewModel(val getRidesUseCases: GetRidesUseCases) : ViewModel() {
     private val _state = MutableStateFlow(RidesState())
@@ -59,10 +60,10 @@ class RidesViewModel(val getRidesUseCases: GetRidesUseCases) : ViewModel() {
             withContext(Dispatchers.IO) {
 
                 val groupedList = rides.groupBy {
-                    convertMillisToDateMonthName(it.date).substring(
-                        3,
-                        convertMillisToDateMonthName(it.date).lastIndexOf(".")
-                    )
+                    val dateString = convertMillisToDateMonthNumber(it.date)
+                    val monthNumber = dateString.substring(3, dateString.lastIndexOf(".")).toInt()
+
+                    convertMonthNumberToMonthName(monthNumber)
                 }
 
                 val totalKm = rides.sumOf { it.distance }
