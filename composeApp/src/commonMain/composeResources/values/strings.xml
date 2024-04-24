@@ -40,8 +40,8 @@
     <string name="ride_duration">%1$d h, %2$d min</string>
     <string name="no_rides_yet">You have no rides yet</string>
     <string name="chart_title">All Rides Statistics</string>
-    <string name="total_chart_label">"Total: "</string>
-    <string name="total_km_chart_label">%1$sKM</string>
+    <string name="total_chart_label">Total: </string>
+    <string name="total_km_chart_label">%1$s KM</string>
     <string name="permission_required_text">Permission required</string>
     <string name="permission_permanently_declined">It seems you permanently declined notification permission. You can go to app settings to grand it</string>
     <string name="permission_rationale">"This app needs to post notifications so it can remind you when your default bike needs service</string>
