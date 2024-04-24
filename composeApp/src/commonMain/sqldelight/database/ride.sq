@@ -32,3 +32,6 @@ WHERE rideName =: name;
 getRides:
 SELECT *
 FROM rideEntity;
+
+getAllRidesForBike:
+SELECT * FROM rideEntity WHERE bikeName=: name;

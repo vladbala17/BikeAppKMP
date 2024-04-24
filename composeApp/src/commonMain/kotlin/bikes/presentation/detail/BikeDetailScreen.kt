@@ -12,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -73,7 +72,7 @@ data class BikeDetailScreen(val bikeId: Int = 0, val bikesRepo: BikesDataSource)
 
         Scaffold(topBar = {
             TopAppBar(
-                title = { Text("state.bikeName") },
+                title = { Text(state.bikeName) },
                 actions = {
                     IconButton(onClick = {}) {
                         Icon(
@@ -127,7 +126,7 @@ data class BikeDetailScreen(val bikeId: Int = 0, val bikesRepo: BikesDataSource)
                     Text(
                         text = stringResource(Res.string.service_in_label) + " ",
                     )
-                    androidx.compose.material.Text(
+                    Text(
                         text = buildAnnotatedString {
                             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append(state.remainingServiceKm.toString())
@@ -143,12 +142,13 @@ data class BikeDetailScreen(val bikeId: Int = 0, val bikesRepo: BikesDataSource)
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp, bottom = 8.dp),
-                    horizontalArrangement = Arrangement.Start
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(Res.string.total_rides_label) + " ",
                     )
-                    androidx.compose.material.Text(
+                    Text(
                         text = if (state.totalRides == 0) {
                             buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
@@ -208,7 +208,6 @@ data class BikeDetailScreen(val bikeId: Int = 0, val bikesRepo: BikesDataSource)
                         distance = ride.distance,
                         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                         withContextMenu = false,
-                        backgroundColor = MaterialTheme.colors.background,
                         durationHours = ride.durationHours,
                         durationMinutes = ride.durationMinutes,
                         date = ride.date

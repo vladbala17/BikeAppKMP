@@ -8,13 +8,17 @@ import com.vlad.bikegarage.bikes.data.local.mapper.toBike
 import com.vlad.kmp.database.BikesDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import rides.data.mapper.toRide
 import rides.domain.model.Ride
 
 class BikesRepository(db: BikesDatabase) : BikesDataSource {
     private val queries = db.bikeQueries
+    private val rideQueries = db.rideQueries
     override suspend fun addBike(bike: Bike) {
         queries.insertBikeEntity(
-            bikeId = bike.id,
+            bikeId = if (bike.id == 0) {
+                null
+            } else bike.id,
             name = bike.name,
             serviceIn = bike.serviceIn,
             isDefault = if (bike.isDefault) {
@@ -37,7 +41,7 @@ class BikesRepository(db: BikesDatabase) : BikesDataSource {
     }
 
     override suspend fun getAllRidesForBike(bikeName: String): List<Ride> {
-        return emptyList()
+        return rideQueries.getAllRidesForBike(bikeName).executeAsList().map { it.toRide() }
     }
 
     override suspend fun getBikeByName(bikeName: String): Bike {

@@ -26,7 +26,7 @@ class RidesRepository(db: BikesDatabase) : RidesDataSource {
 
     override suspend fun addRide(ride: Ride) {
         queries.insertRideEntity(
-            rideId = ride.id,
+            rideId = if (ride.id == 0) null else ride.id,
             rideName = ride.rideName,
             bikeName = ride.bikeName,
             bikeType = ride.bikeType,

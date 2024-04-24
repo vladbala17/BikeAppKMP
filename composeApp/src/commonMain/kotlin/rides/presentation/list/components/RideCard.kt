@@ -38,7 +38,6 @@ import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import ui.theme.OceanBlue
 import util.convertMillisToDateMonthNumber
 
 
@@ -52,7 +51,6 @@ fun RideCard(
     durationMinutes: Int = 8,
     date: Long = Clock.System.now().toEpochMilliseconds(),
     bikeName: String = "Nukeproof Scout 290",
-    backgroundColor: Color = OceanBlue,
     onEditRideMenuClick: (Int) -> Unit = {},
     onDeleteRideMenuClick: (String) -> Unit = {},
     onRideCardClick: (Int) -> Unit = {},
@@ -82,8 +80,7 @@ fun RideCard(
                 )
                 Text(
                     text = rideTitle,
-                    style = MaterialTheme.typography.h2,
-                    color = MaterialTheme.colors.onPrimary,
+                    style = MaterialTheme.typography.h3,
                     modifier = Modifier.padding(start = 16.dp)
                 )
                 Spacer(modifier = Modifier.weight(1f))

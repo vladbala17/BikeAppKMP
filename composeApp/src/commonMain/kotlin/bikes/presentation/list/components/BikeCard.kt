@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,7 +30,6 @@ import bikes.presentation.addbike.components.BikeFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import ui.theme.OceanBlue
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -48,7 +47,7 @@ fun BikeCard(
     onBikeCardClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    Card(backgroundColor = OceanBlue, modifier = modifier) {
+    Card(modifier = modifier) {
         var displayMenu by remember { mutableStateOf(false) }
         Column(modifier = Modifier
             .padding(16.dp)
@@ -82,18 +81,15 @@ fun BikeCard(
             )
             Text(
                 text = bikeName,
-                color = MaterialTheme.colorScheme.inversePrimary,
                 style = MaterialTheme.typography.headlineSmall
             )
             Row(modifier = Modifier.padding(top = 8.dp)) {
                 Text(
                     text = stringResource(Res.string.wheels_label),
-                    color = MaterialTheme.colorScheme.inversePrimary,
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
                     text = wheelSize,
-                    color = MaterialTheme.colorScheme.inversePrimary,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -101,12 +97,10 @@ fun BikeCard(
             Row(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
                 Text(
                     text = stringResource(Res.string.service_in_label) + " ",
-                    color = MaterialTheme.colorScheme.inversePrimary,
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
                     text = "$remainingServiceDistance $defaultUnit",
-                    color = MaterialTheme.colorScheme.inversePrimary,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold
                 )

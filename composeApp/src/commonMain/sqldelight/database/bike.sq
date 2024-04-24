@@ -33,3 +33,4 @@ FROM bikeEntity;
 
 getBikeByName:
 SELECT * FROM bikeEntity WHERE name =: name;
+
