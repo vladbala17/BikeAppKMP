@@ -1,7 +1,6 @@
 package settings.presentation.components
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -66,7 +65,6 @@ fun DropDownField(
                     text = {
                         Text(
                             text = selectedOption,
-                            color = MaterialTheme.colors.onPrimary
                         )
                     }, onClick = {
                         onSelectedItem(selectedOption)

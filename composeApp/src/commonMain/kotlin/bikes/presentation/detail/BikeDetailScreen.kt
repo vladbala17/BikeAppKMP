@@ -99,7 +99,7 @@ data class BikeDetailScreen(val bikeId: Int = 0, val bikesRepo: BikesDataSource)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)
+                    .padding(start = 8.dp, end = 8.dp, top = it.calculateTopPadding())
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
