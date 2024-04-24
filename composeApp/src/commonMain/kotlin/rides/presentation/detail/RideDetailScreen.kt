@@ -1,7 +1,6 @@
 package rides.presentation.detail
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,7 +44,6 @@ data class RideDetailScreen(val rideId: Int = 0) : Screen {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .background(androidx.compose.material.MaterialTheme.colors.background)
         ) {
 
             Row(

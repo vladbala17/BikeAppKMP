@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -58,7 +56,6 @@ fun ConfirmationDialog(
                         }
                         append(stringResource(Res.string.delete_bike_dialog_text))
                     },
-                    color = Color.White,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 16.dp)
                 )
@@ -66,14 +63,13 @@ fun ConfirmationDialog(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    TextButton(
-                        onClick = { onDismissRequest() },
+                    ActionButton(
+                        onButtonClick = { onDismissRequest() },
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
-                            .padding(8.dp)
-                    ) {
-                        Text(stringResource(Res.string.cancel_dialog_action))
-                    }
+                            .padding(8.dp),
+                        text = stringResource(Res.string.cancel_dialog_action)
+                    )
                     ActionButton(
                         text = stringResource(Res.string.delete_menu_action),
                         onButtonClick = { onConfirmation() },
