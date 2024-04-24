@@ -12,8 +12,7 @@
     <string name="default_bike_label">Default Bike</string>
     <string name="add_bike_label">Add Bike</string>
     <string name="add_ride_label">Add Ride</string>
-    <string name="no_bikes_info">You don\'t have any bike added yet.\n Add your first bike and start register \n your
-                        rides in order to keep your bike \n service cycles up to date.</string>
+    <string name="no_bikes_info">You don't have any bike added yet. Add your first bike and start register your rides in order to keep your bike service cycles up to date.</string>
     <string name="bike_name_validation_error">Required field</string>
     <string name="bike_name_label">Bike Name</string>
     <string name="wheel_size_label">Wheel Size</string>
