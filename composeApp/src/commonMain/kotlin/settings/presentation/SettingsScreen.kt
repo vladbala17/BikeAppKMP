@@ -44,7 +44,6 @@ data class SettingsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-
                 .padding(start = 16.dp, end = 16.dp)
         ) {
             Label(

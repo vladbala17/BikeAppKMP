@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -54,7 +58,10 @@ fun CustomTextField(
     val focusRequester = remember {
         FocusRequester()
     }
-    val colorBorder = if (isError) MaterialTheme.colors.error else MaterialTheme.colors.onSecondary
+    val colorBorder = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSecondary
+
+    val localStyle = LocalTextStyle.current
+    val mergedStyle = localStyle.merge(TextStyle(color = LocalContentColor.current))
     Column {
         BasicTextField(
             value = text,
@@ -65,6 +72,8 @@ fun CustomTextField(
             maxLines = maxLine,
             singleLine = singleLine,
             interactionSource = interactionSource,
+            textStyle = mergedStyle,
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
             visualTransformation =
             if (keyboardType == KeyboardType.Password) {
                 if (isVisible) VisualTransformation.None else PasswordVisualTransformation()
@@ -89,7 +98,7 @@ fun CustomTextField(
                             color = colorBorder
                         )
                         .background(
-                            color = MaterialTheme.colors.onPrimary,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             shape = RoundedCornerShape(4.dp)
                         )
                         .focusRequester(focusRequester)
@@ -124,7 +133,7 @@ fun CustomTextField(
         if (requiresDataValidation) {
             Text(
                 text = if (isError) errorMessage!! else "",
-                color = MaterialTheme.colors.error,
+                color = MaterialTheme.colorScheme.error,
                 modifier = modifier
             )
         }
