@@ -3,8 +3,6 @@
 package rides.presentation.addride.components
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,13 +42,12 @@ fun CustomDatePicker(onDateSelected: (Long) -> Unit = {}, onDismissDialog: () ->
             )
         },
         dismissButton = {
-            TextButton(
-                onClick = { onDismissDialog() },
+            ActionButton(
+                onButtonClick = { onDismissDialog() },
                 modifier = Modifier
-                    .padding(8.dp)
-            ) {
-                Text(stringResource(Res.string.cancel_dialog_action))
-            }
+                    .padding(8.dp),
+                text = stringResource(Res.string.cancel_dialog_action)
+            )
         }) {
         DatePicker(
             state = datePickerState, showModeToggle = false

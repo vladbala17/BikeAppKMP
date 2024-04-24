@@ -1,6 +1,5 @@
 package rides.presentation.addride.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,6 +40,7 @@ fun TimeDurationPicker(
     var minValue by remember {
         mutableStateOf(minutesValue)
     }
+
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
             modifier = Modifier
@@ -53,53 +51,43 @@ fun TimeDurationPicker(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colors.secondaryVariant),
+                    .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(MaterialTheme.colors.secondaryVariant),
-                    horizontalArrangement = Arrangement.Center,
-
-                    verticalAlignment = Alignment.CenterVertically
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-//                    NumberPicker(
-//                        value = hourValue,
-//                        onValueChange = { hours ->
-//                            hourValue = hours
-//                        },
-//                        range = (0..23),
-//                        dividersColor = Color.Unspecified,
-//                        textStyle = MaterialTheme.typography.h2
-//                    )
-//                    Text(text = "h")
-//                    NumberPicker(
-//                        value = minValue,
-//                        onValueChange = { min ->
-//                            minValue = min
-//                        },
-//                        range = (0..60),
-//                        dividersColor = Color.Unspecified,
-//                        textStyle = MaterialTheme.typography.h2
-//                    )
-                    Text(text = "min")
+                    VerticalPager(hoursList) {
+                        hourValue = it
+                    }
+                    Text(
+                        text = "Hours",
+                        style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
+                    )
+                    VerticalPager(minutesList) {
+                        minValue = it
+                    }
+                    Text(
+                        text = "Minutes",
+                        style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
+                    )
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    TextButton(
-                        onClick = { onDismissRequest() },
+                    ActionButton(
+                        onButtonClick = { onDismissRequest() },
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
-                            .padding(8.dp)
-                    ) {
-                        Text(stringResource(Res.string.cancel_dialog_action))
-                    }
+                            .padding(8.dp),
+                        text = stringResource(Res.string.cancel_dialog_action)
+                    )
                     ActionButton(
                         text = stringResource(Res.string.set_dialog_action),
                         onButtonClick = { onConfirmation(hourValue, minValue) },
@@ -110,3 +98,6 @@ fun TimeDurationPicker(
         }
     }
 }
+
+val hoursList = IntRange(0, 23).map { it.toString() }
+val minutesList = IntRange(0, 59).map { it.toString() }
