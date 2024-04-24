@@ -80,8 +80,7 @@ data class AddBikeScreen(
 
         Column(
             modifier = modifier
-                .fillMaxSize()
-                .padding(4.dp),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             HorizontalColorPicker(
@@ -97,7 +96,9 @@ data class AddBikeScreen(
             Label(
                 title = stringResource(Res.string.bike_name_label),
                 isMandatory = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 6.dp)
             )
             CustomTextField(
                 placeHolder = "",
@@ -108,12 +109,19 @@ data class AddBikeScreen(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next,
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(start = 6.dp, end = 6.dp),
                 singleLine = true,
                 isError = state.bikeNameError != null,
                 errorMessage = state.bikeNameError,
             )
-            Label(title = stringResource(Res.string.wheel_size_label), isMandatory = true)
+            Label(
+                title = stringResource(Res.string.wheel_size_label),
+                isMandatory = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 6.dp)
+            )
             DropDownField(
                 listOf(
                     "29'", "30'"
@@ -123,9 +131,15 @@ data class AddBikeScreen(
                     viewModel.onEvent(AddBikeEvent.OnWheelSizeAdded(selectedItem))
                 },
                 Res.drawable.icon_dropdown,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 3.dp, end = 3.dp)
             )
-            Label(title = stringResource(Res.string.service_in_label), isMandatory = true)
+            Label(
+                title = stringResource(Res.string.service_in_label),
+                isMandatory = true,
+                modifier = Modifier.padding(start = 6.dp)
+            )
             NumericTextField(
                 value = state.serviceIn,
                 defaultSuffix = state.defaultUnit,
@@ -133,8 +147,11 @@ data class AddBikeScreen(
                 errorMessage = state.distanceError,
                 onServiceReminderAdded = { serviceInterval ->
                     viewModel.onEvent(AddBikeEvent.OnServiceIntervalAdded(serviceInterval))
-                })
-            Row(modifier = Modifier.fillMaxWidth()) {
+                },
+                modifier = Modifier
+                    .padding(start = 6.dp, end = 6.dp)
+            )
+            Row(modifier = Modifier.fillMaxWidth().padding(start = 6.dp, end = 6.dp)) {
                 Text(
                     text = stringResource(Res.string.default_bike_label),
                     modifier = Modifier
@@ -161,6 +178,7 @@ data class AddBikeScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(start = 6.dp, end = 6.dp)
             )
         }
         if (state.isValidatedSuccessfully) {

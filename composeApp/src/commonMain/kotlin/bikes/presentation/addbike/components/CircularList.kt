@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 
@@ -49,7 +49,7 @@ fun CircularList(
                 .border(
                     border =
                     if (selectedIndex == index) {
-                        BorderStroke(2.dp, White)
+                        BorderStroke(2.dp, MaterialTheme.colorScheme.onPrimaryContainer)
                     } else {
                         BorderStroke(width = 0.dp, color = colorList[index])
                     }, shape = CircleShape

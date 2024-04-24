@@ -14,8 +14,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
@@ -81,7 +81,7 @@ fun BikesPager(
         ) {
             repeat(4) { iteration ->
                 val color =
-                    if (pagerState.currentPage == iteration) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary
+                    if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
                 Box(
                     modifier = Modifier
                         .padding(4.dp)
