@@ -45,7 +45,7 @@ fun CircularList(
             val index = it % colorList.size
             // item composable
             Canvas(modifier = Modifier
-                .size(25.dp)
+                .size(32.dp)
                 .border(
                     border =
                     if (selectedIndex == index) {
