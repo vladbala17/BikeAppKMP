@@ -6,5 +6,5 @@ data class SettingsState(
     val isServiceNotifyEnabled: Boolean = false,
     val defaultBike: String = "TestBike",
     val defaultBikeList: List<String> = emptyList(),
-    val showPermissionDialog: Boolean = false
+    val showPermissionRationale: Boolean = false
 )

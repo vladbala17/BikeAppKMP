@@ -55,6 +55,9 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.bottom.sheet)
             implementation(libs.voyager.transitions)
+
+            api("dev.icerock.moko:permissions:0.18.0")
+            api("dev.icerock.moko:permissions-compose:0.18.0")
         }
 
         iosMain.dependencies {

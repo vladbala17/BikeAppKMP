@@ -89,7 +89,7 @@ fun App(
                 titleId = Res.string.rides_title
             ),
             BottomNavItem(
-                route = SettingsScreen(userPrefs),
+                route = SettingsScreen(appModule.bikesDataSource, userPrefs),
                 selectedIcon = Res.drawable.settings_active,
                 unselectedIcon = Res.drawable.settings_inactive,
                 titleId = Res.string.settings_title

@@ -1,14 +1,28 @@
 package settings.presentation
 
+import bikes.domain.model.Bike
+import bikes.domain.use_case.GetBikes
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import dev.icerock.moko.permissions.DeniedAlwaysException
+import dev.icerock.moko.permissions.DeniedException
+import dev.icerock.moko.permissions.Permission
+import dev.icerock.moko.permissions.PermissionsController
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import settings.domain.PreferencesRepo
 
-class SettingsViewModel(private val preferences: PreferencesRepo) : ViewModel() {
+class SettingsViewModel(
+    val permissionsController: PermissionsController,
+    private val getBikes: GetBikes,
+    private val preferences: PreferencesRepo
+) : ViewModel() {
+
     private val _state = MutableStateFlow(SettingsState())
     val state =
         _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), SettingsState())
@@ -16,7 +30,7 @@ class SettingsViewModel(private val preferences: PreferencesRepo) : ViewModel() 
     private var getBikesJob: Job? = null
 
     init {
-//        loadSettings()
+        loadSettings()
         _state.update {
             it.copy(
                 distanceUnit = preferences.getDistanceUnit(),
@@ -59,35 +73,85 @@ class SettingsViewModel(private val preferences: PreferencesRepo) : ViewModel() 
                 preferences.saveServiceInterval(event.distanceIntervalReminder)
             }
 
-            SettingsEvent.OnShowPermissionDialog -> {
+            SettingsEvent.OnShowPermissionRationale -> {
                 _state.update { newState ->
-                    newState.copy(showPermissionDialog = true)
+                    newState.copy(showPermissionRationale = true)
                 }
             }
 
             SettingsEvent.OnDismissPermissionDialog -> {
                 _state.update { newState ->
-                    newState.copy(showPermissionDialog = false)
+                    newState.copy(showPermissionRationale = false)
                 }
             }
 
-            else -> {}
+            is SettingsEvent.OnShowPermissionRequest -> {
+                onRequestPermission(event, Permission.REMOTE_NOTIFICATION)
+            }
         }
     }
 
     private fun loadSettings() {
-//        getBikesJob?.cancel()
-//        getBikesJob = getBikes.invoke().onEach { bikes: List<Bike> ->
-//            val bikeNames = bikes.map { it.name }
-//            _state.update {
-//                it.copy(
-//                    distanceUnit = preferences.getDistanceUnit(),
-//                    serviceIntervalReminder = preferences.getServiceInterval(),
-//                    isServiceNotifyEnabled = preferences.areNotificationsEnabled(),
-//                    defaultBike = preferences.getDefaultBikeName(),
-//                    defaultBikeList = bikeNames
-//                )
-//            }
-//        }.launchIn(viewModelScope)
+        getBikesJob?.cancel()
+        getBikesJob = getBikes().onEach { bikes: List<Bike> ->
+            val bikeNames = bikes.map { it.name }
+            _state.update {
+                it.copy(
+                    distanceUnit = preferences.getDistanceUnit(),
+                    serviceIntervalReminder = preferences.getServiceInterval(),
+                    isServiceNotifyEnabled = preferences.areNotificationsEnabled(),
+                    defaultBike = preferences.getDefaultBikeName(),
+                    defaultBikeList = bikeNames
+                )
+            }
+        }.launchIn(viewModelScope)
     }
+
+    private fun onRequestPermission(
+        event: SettingsEvent.OnShowPermissionRequest,
+        permission: Permission
+    ) {
+        viewModelScope.launch {
+            if (permissionsController.isPermissionGranted(permission).not()) {
+                requestPermission(event, Permission.REMOTE_NOTIFICATION)
+            } else {
+                _state.update { newState ->
+                    newState.copy(isServiceNotifyEnabled = event.notifyReminder, showPermissionRationale = false)
+                }
+                preferences.saveEnabledNotifications(_state.value.isServiceNotifyEnabled)
+            }
+        }
+    }
+
+    private fun requestPermission(
+        event: SettingsEvent.OnShowPermissionRequest,
+        permission: Permission
+    ) {
+        viewModelScope.launch {
+            try {
+                // Calls suspend function in a coroutine to request some permission.
+                permissionsController.providePermission(permission)
+                // If there are no exceptions, permission has been granted successfully.
+                _state.update { newState ->
+                    newState.copy(isServiceNotifyEnabled = event.notifyReminder, showPermissionRationale = false)
+                }
+                preferences.saveEnabledNotifications(_state.value.isServiceNotifyEnabled)
+            } catch (deniedAlwaysException: DeniedAlwaysException) {
+                _state.update { newState ->
+                    newState.copy(showPermissionRationale = true)
+                }
+            } catch (deniedException: DeniedException) {
+                _state.update { newState ->
+                    newState.copy(showPermissionRationale = true)
+                }
+            } catch (exception: IllegalStateException) {
+                _state.update { newState ->
+                    newState.copy(showPermissionRationale = true)
+                }
+            }
+
+        }
+    }
+
+
 }
