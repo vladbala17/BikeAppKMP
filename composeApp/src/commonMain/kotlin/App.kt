@@ -49,7 +49,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import rides.presentation.addride.AddRideScreen
 import rides.presentation.list.RidesScreen
-import settings.data.PreferenceRepoImpl
 import settings.presentation.SettingsScreen
 
 
@@ -68,12 +67,11 @@ fun App(
         val mainScreenViewModel =
             getViewModel(key = "main-screen", factory = viewModelFactory { MainScreenViewModel() })
 
-        val userPrefs = PreferenceRepoImpl(appModule.localPreferences)
         val mainScreenState by mainScreenViewModel.state.collectAsState()
 
         val bottomNavItemList = listOf(
             BottomNavItem(
-                route = BikesScreen(appModule.bikesDataSource, userPrefs),
+                route = BikesScreen(appModule.bikesDataSource, appModule.localPreferences),
                 selectedIcon = Res.drawable.icon_bikes_inactive,
                 unselectedIcon = Res.drawable.icon_bikes_inactive,
                 titleId = Res.string.bikes_title
@@ -82,14 +80,14 @@ fun App(
                 route = RidesScreen(
                     ridesRepository = appModule.ridesDataSource,
                     bikesRepository = appModule.bikesDataSource,
-                    localPreferencesRepo = userPrefs
+                    localPreferencesRepo = appModule.localPreferences
                 ),
                 selectedIcon = Res.drawable.rides_active,
                 unselectedIcon = Res.drawable.rides_inactive,
                 titleId = Res.string.rides_title
             ),
             BottomNavItem(
-                route = SettingsScreen(appModule.bikesDataSource, userPrefs),
+                route = SettingsScreen(appModule.bikesDataSource, appModule.localPreferences),
                 selectedIcon = Res.drawable.settings_active,
                 unselectedIcon = Res.drawable.settings_inactive,
                 titleId = Res.string.settings_title
@@ -97,7 +95,7 @@ fun App(
         )
 
 
-        Navigator(BikesScreen(appModule.bikesDataSource, userPrefs)) { navigator ->
+        Navigator(BikesScreen(appModule.bikesDataSource, appModule.localPreferences)) { navigator ->
             Scaffold(
                 topBar = {
                     CustomTopNavigationBar(state = mainScreenState,
@@ -106,13 +104,13 @@ fun App(
                         },
                         onAddItemClick = {
                             if (navigator.lastItem.key == bottomNavItemList[0].route.key) {
-                                navigator.push(AddBikeScreen(appModule.bikesDataSource, userPrefs))
+                                navigator.push(AddBikeScreen(appModule.bikesDataSource, appModule.localPreferences))
                             } else {
                                 navigator.push(
                                     AddRideScreen(
                                         ridesDataSource = appModule.ridesDataSource,
                                         bikesDataSource = appModule.bikesDataSource,
-                                        preferencesRepo = userPrefs
+                                        preferencesRepo = appModule.localPreferences
                                     )
                                 )
                             }

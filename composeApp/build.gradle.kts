@@ -58,6 +58,9 @@ kotlin {
 
             api("dev.icerock.moko:permissions:0.18.0")
             api("dev.icerock.moko:permissions-compose:0.18.0")
+
+            implementation("cafe.adriel.voyager:voyager-screenmodel:1.0.0")
+
         }
 
         iosMain.dependencies {

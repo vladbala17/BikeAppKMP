@@ -7,12 +7,20 @@ import core.data.DatabaseDriverFactory
 import platform.darwin.NSObject
 import rides.data.RidesRepository
 import rides.domain.RidesDataSource
+import settings.data.PreferenceRepoImpl
 import settings.domain.KMPPreference
+import settings.domain.PreferencesRepo
 
 actual class AppModule(
     private val appContext: NSObject
 ) {
-    actual val localPreferences: KMPPreference = KMPPreference(appContext)
+    actual val localPreferences: PreferencesRepo by lazy {
+        PreferenceRepoImpl(
+            KMPPreference(
+                appContext
+            )
+        )
+    }
 
     val sqlDriver = DatabaseDriverFactory().create()
     val database = BikesDatabase(sqlDriver)
