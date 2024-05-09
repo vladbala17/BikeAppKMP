@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.sqldelight.android.driver)
+            api(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -56,11 +57,12 @@ kotlin {
             implementation(libs.voyager.bottom.sheet)
             implementation(libs.voyager.transitions)
 
-            api("dev.icerock.moko:permissions:0.18.0")
-            api("dev.icerock.moko:permissions-compose:0.18.0")
+            api(libs.permissions)
+            api(libs.moko.permissions.compose)
 
-            implementation("cafe.adriel.voyager:voyager-screenmodel:1.0.0")
+            api(libs.koin.core)
 
+            implementation(libs.koin.compose)
         }
 
         iosMain.dependencies {
