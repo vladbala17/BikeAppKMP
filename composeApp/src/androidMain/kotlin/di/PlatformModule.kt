@@ -10,6 +10,7 @@ import org.koin.dsl.module
 import rides.presentation.addride.AddRideViewModel
 import rides.presentation.detail.RideDetailViewModel
 import rides.presentation.list.RidesViewModel
+import settings.domain.KMPPreference
 
 actual class PlatformModule {
     actual val modules = module {
@@ -29,5 +30,7 @@ actual class PlatformModule {
         viewModel { AddRideViewModel(get(), get(), get()) }
         viewModel { RideDetailViewModel() }
         viewModel { RidesViewModel(get()) }
+
+        single { KMPPreference(get()) }
     }
 }

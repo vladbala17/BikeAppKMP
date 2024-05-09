@@ -6,9 +6,11 @@ import bikes.presentation.list.BikesViewModel
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import com.vlad.kmp.database.BikesDatabase
 import org.koin.dsl.module
+import platform.darwin.NSObject
 import rides.presentation.addride.AddRideViewModel
 import rides.presentation.detail.RideDetailViewModel
 import rides.presentation.list.RidesViewModel
+import settings.domain.KMPPreference
 
 actual class PlatformModule {
     actual val modules = module {
@@ -22,5 +24,7 @@ actual class PlatformModule {
         factory { AddRideViewModel(get(), get(), get()) }
         factory { RideDetailViewModel() }
         factory { RidesViewModel(get()) }
+
+        single { KMPPreference(NSObject()) }
     }
 }

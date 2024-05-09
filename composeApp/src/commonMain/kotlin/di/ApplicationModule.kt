@@ -24,6 +24,8 @@ import rides.domain.use_case.GetRideDetail
 import rides.domain.use_case.GetRides
 import rides.presentation.addride.AddRidesUseCases
 import rides.presentation.list.GetRidesUseCases
+import settings.data.PreferenceRepoImpl
+import settings.domain.PreferencesRepo
 
 expect class PlatformModule constructor() {
     val modules: Module
@@ -64,4 +66,8 @@ val ridesUseCasesModule = module {
 val repositoriesModule = module {
     single<BikesDataSource> { BikesRepository(get()) }
     single<RidesDataSource> { RidesRepository(get()) }
+}
+
+val localPreferencesModule = module {
+    single<PreferencesRepo> { PreferenceRepoImpl(get()) }
 }
