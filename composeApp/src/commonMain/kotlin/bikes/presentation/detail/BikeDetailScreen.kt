@@ -54,9 +54,8 @@ import org.koin.compose.koinInject
 import rides.domain.model.Ride
 import rides.presentation.list.components.RideCard
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 data class BikeDetailScreen(val bikeId: Int = 0) : Screen {
-
 
     @Composable
     override fun Content() {

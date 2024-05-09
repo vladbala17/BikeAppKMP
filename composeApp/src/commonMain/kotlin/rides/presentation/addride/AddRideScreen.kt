@@ -33,7 +33,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import rides.presentation.addride.components.CustomDatePicker
 import rides.presentation.addride.components.TimeDurationPicker
-import settings.data.PreferenceRepoImpl
+import settings.domain.PreferencesRepo
 import settings.presentation.components.CustomTextField
 import settings.presentation.components.DropDownField
 import settings.presentation.components.Label
@@ -50,7 +50,7 @@ data class AddRideScreen(
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val ridesUseCases = koinInject<AddRidesUseCases>()
-        val preferencesRepo = koinInject<PreferenceRepoImpl>()
+        val preferencesRepo = koinInject<PreferencesRepo>()
         val viewModel = getViewModel(
             key = "add-ride-screen",
             factory = viewModelFactory { AddRideViewModel(rideId, ridesUseCases, preferencesRepo) })

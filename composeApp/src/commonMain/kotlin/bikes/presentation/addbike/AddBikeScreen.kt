@@ -36,7 +36,7 @@ import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
-import settings.data.PreferenceRepoImpl
+import settings.domain.PreferencesRepo
 import settings.presentation.components.CustomTextField
 import settings.presentation.components.DefaultSwitch
 import settings.presentation.components.DropDownField
@@ -52,7 +52,7 @@ data class AddBikeScreen(
     @Composable
     override fun Content() {
         val addBikeUseCases = koinInject<AddBikeUseCases>()
-        val preferencesRepo = koinInject<PreferenceRepoImpl>()
+        val preferencesRepo = koinInject<PreferencesRepo>()
         val navigator = LocalNavigator.currentOrThrow
 
         val viewModel = getViewModel(
