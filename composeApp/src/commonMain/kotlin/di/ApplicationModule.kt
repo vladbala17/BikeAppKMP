@@ -1,5 +1,7 @@
 package di
 
+import bikes.data.BikesRepository
+import bikes.domain.BikesDataSource
 import bikes.domain.use_case.AddBike
 import bikes.domain.use_case.DeleteBike
 import bikes.domain.use_case.GetBikeByName
@@ -12,13 +14,20 @@ import bikes.presentation.detail.AddBikeUseCases
 import bikes.presentation.detail.BikeDetailUseCases
 import bikes.presentation.list.BikesListUseCases
 import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
+import rides.data.RidesRepository
+import rides.domain.RidesDataSource
 import rides.domain.use_case.AddRide
 import rides.domain.use_case.DeleteRide
 import rides.domain.use_case.GetRideDetail
 import rides.domain.use_case.GetRides
 import rides.presentation.addride.AddRidesUseCases
 import rides.presentation.list.GetRidesUseCases
+
+expect class PlatformModule constructor() {
+    val modules: Module
+}
 
 fun initKoin() {
     startKoin {
@@ -40,7 +49,6 @@ val bikesUseCasesModule = module {
     single { AddBikeUseCases(get(), get(), get(), get()) }
     single { BikeDetailUseCases(get(), get()) }
     single { AddBikeUseCases(get(), get(), get(), get()) }
-
 }
 
 val ridesUseCasesModule = module {
@@ -51,6 +59,9 @@ val ridesUseCasesModule = module {
 
     single { AddRidesUseCases(get(), get(), get(), get(), get()) }
     single { GetRidesUseCases(get(), get()) }
+}
 
-
+val repositoriesModule = module {
+    single<BikesDataSource> { BikesRepository(get()) }
+    single<RidesDataSource> { RidesRepository(get()) }
 }
