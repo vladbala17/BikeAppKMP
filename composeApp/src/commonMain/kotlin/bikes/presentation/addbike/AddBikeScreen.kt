@@ -24,11 +24,6 @@ import bikeappkmp.composeapp.generated.resources.edit_bike_action
 import bikeappkmp.composeapp.generated.resources.icon_dropdown
 import bikeappkmp.composeapp.generated.resources.service_in_label
 import bikeappkmp.composeapp.generated.resources.wheel_size_label
-import bikes.domain.BikesDataSource
-import bikes.domain.use_case.AddBike
-import bikes.domain.use_case.GetBikeDetail
-import bikes.domain.use_case.ValidateBikeName
-import bikes.domain.use_case.ValidateDistance
 import bikes.presentation.addbike.components.BikesPager
 import bikes.presentation.addbike.components.HorizontalColorPicker
 import bikes.presentation.detail.AddBikeUseCases
@@ -40,7 +35,8 @@ import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import settings.domain.PreferencesRepo
+import org.koin.compose.koinInject
+import settings.data.PreferenceRepoImpl
 import settings.presentation.components.CustomTextField
 import settings.presentation.components.DefaultSwitch
 import settings.presentation.components.DropDownField
@@ -49,22 +45,14 @@ import settings.presentation.components.NumericTextField
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 data class AddBikeScreen(
-    val bikesDataSource: BikesDataSource,
-    val preferencesRepo: PreferencesRepo,
     val bikeId: Int = 0,
     val modifier: Modifier = Modifier,
 ) : Screen {
 
-    private val addBikeUseCases = AddBikeUseCases(
-        AddBike(bikesDataSource),
-        GetBikeDetail(bikesDataSource),
-        ValidateBikeName(),
-        ValidateDistance()
-    )
-
-
     @Composable
     override fun Content() {
+        val addBikeUseCases = koinInject<AddBikeUseCases>()
+        val preferencesRepo = koinInject<PreferenceRepoImpl>()
         val navigator = LocalNavigator.currentOrThrow
 
         val viewModel = getViewModel(

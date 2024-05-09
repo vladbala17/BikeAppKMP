@@ -28,7 +28,6 @@ import bikeappkmp.composeapp.generated.resources.distance_unit_miles
 import bikeappkmp.composeapp.generated.resources.distance_units_label
 import bikeappkmp.composeapp.generated.resources.icon_dropdown
 import bikeappkmp.composeapp.generated.resources.service_reminder_label
-import bikes.domain.BikesDataSource
 import bikes.domain.use_case.GetBikes
 import cafe.adriel.voyager.core.screen.Screen
 import dev.icerock.moko.mvvm.compose.getViewModel
@@ -40,6 +39,7 @@ import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 import settings.domain.PreferencesRepo
 import settings.presentation.components.DefaultSwitch
 import settings.presentation.components.DropDownField
@@ -47,22 +47,21 @@ import settings.presentation.components.Label
 import settings.presentation.components.NumericTextField
 
 @OptIn(ExperimentalResourceApi::class)
-data class SettingsScreen(
-    private val bikesRepository: BikesDataSource,
-    private val userPreferences: PreferencesRepo
-) : Screen {
+object SettingsScreen : Screen {
 
     @Composable
     override fun Content() {
         val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
         val controller = remember(factory) { factory.createPermissionsController() }
+        val getBikesUseCase = koinInject<GetBikes>()
+        val userPref = koinInject<PreferencesRepo>()
         val viewModel = getViewModel(
             key = "settings-screen",
             factory = viewModelFactory {
                 SettingsViewModel(
                     permissionsController = controller,
-                    getBikes = GetBikes(bikesRepository),
-                    preferences = userPreferences
+                    getBikes = getBikesUseCase,
+                    preferences = userPref
                 )
             })
         val coroutineScope = rememberCoroutineScope()
@@ -153,7 +152,7 @@ data class SettingsScreen(
                     coroutineScope.launch {
                         val result =
                             snackBarHostState.showSnackbar(
-                               message =  "Notification permission needed to notify you about service reminder",
+                                message = "Notification permission needed to notify you about service reminder",
                                 actionLabel = "Allow permission",
                                 duration = SnackbarDuration.Short
                             )

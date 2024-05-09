@@ -33,7 +33,7 @@ expect class PlatformModule constructor() {
 
 fun initKoin() {
     startKoin {
-        modules()
+        modules(localPreferencesModule + repositoriesModule + bikesUseCasesModule + ridesUseCasesModule + PlatformModule().modules)
     }
 }
 

@@ -22,10 +22,6 @@ import bikeappkmp.composeapp.generated.resources.ride_distance_label
 import bikeappkmp.composeapp.generated.resources.ride_duration
 import bikeappkmp.composeapp.generated.resources.ride_duration_label
 import bikeappkmp.composeapp.generated.resources.ride_title_label
-import bikes.domain.BikesDataSource
-import bikes.domain.use_case.GetBikes
-import bikes.domain.use_case.ValidateBikeName
-import bikes.domain.use_case.ValidateDistance
 import bikes.presentation.list.components.ActionButton
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -34,12 +30,10 @@ import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import rides.domain.RidesDataSource
-import rides.domain.use_case.AddRide
-import rides.domain.use_case.GetRideDetail
+import org.koin.compose.koinInject
 import rides.presentation.addride.components.CustomDatePicker
 import rides.presentation.addride.components.TimeDurationPicker
-import settings.domain.PreferencesRepo
+import settings.data.PreferenceRepoImpl
 import settings.presentation.components.CustomTextField
 import settings.presentation.components.DropDownField
 import settings.presentation.components.Label
@@ -48,20 +42,15 @@ import util.convertMillisToDateMonthNumber
 
 @OptIn(ExperimentalResourceApi::class)
 data class AddRideScreen(
-    val ridesDataSource: RidesDataSource,
-    val bikesDataSource: BikesDataSource,
-    val preferencesRepo: PreferencesRepo,
     val rideId: Int = 0,
 ) : Screen {
 
-    private val ridesUseCases = AddRidesUseCases(
-        ValidateBikeName(), ValidateDistance(), AddRide(ridesDataSource),
-        GetRideDetail(ridesDataSource), GetBikes(bikesDataSource)
-    )
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val ridesUseCases = koinInject<AddRidesUseCases>()
+        val preferencesRepo = koinInject<PreferenceRepoImpl>()
         val viewModel = getViewModel(
             key = "add-ride-screen",
             factory = viewModelFactory { AddRideViewModel(rideId, ridesUseCases, preferencesRepo) })

@@ -12,16 +12,16 @@ import rides.presentation.detail.RideDetailViewModel
 import rides.presentation.list.RidesViewModel
 import settings.domain.KMPPreference
 
-actual class PlatformModule {
+actual class PlatformModule actual constructor() {
     actual val modules = module {
         single {
-            AndroidSqliteDriver(
+            val driver = AndroidSqliteDriver(
                 BikesDatabase.Schema,
                 get(),
                 "bikes.db"
             )
+            BikesDatabase(driver)
         }
-        single { BikesDatabase(get()) }
 
         viewModel { AddBikeViewModel(get(), get(), get()) }
         viewModel { BikeDetailViewModel(get(), get()) }

@@ -39,7 +39,6 @@ import cafe.adriel.voyager.navigator.Navigator
 import core.presentation.BikesTheme
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
-import di.AppModule
 import navigation.BottomNavItem
 import navigation.MainScreenEvent
 import navigation.MainScreenState
@@ -57,7 +56,6 @@ import settings.presentation.SettingsScreen
 fun App(
     darkTheme: Boolean,
     dynamicColor: Boolean,
-    appModule: AppModule
 ) {
     BikesTheme(
         darkTheme = darkTheme,
@@ -71,23 +69,19 @@ fun App(
 
         val bottomNavItemList = listOf(
             BottomNavItem(
-                route = BikesScreen(appModule.bikesDataSource, appModule.localPreferences),
+                route = BikesScreen,
                 selectedIcon = Res.drawable.icon_bikes_inactive,
                 unselectedIcon = Res.drawable.icon_bikes_inactive,
                 titleId = Res.string.bikes_title
             ),
             BottomNavItem(
-                route = RidesScreen(
-                    ridesRepository = appModule.ridesDataSource,
-                    bikesRepository = appModule.bikesDataSource,
-                    localPreferencesRepo = appModule.localPreferences
-                ),
+                route = RidesScreen,
                 selectedIcon = Res.drawable.rides_active,
                 unselectedIcon = Res.drawable.rides_inactive,
                 titleId = Res.string.rides_title
             ),
             BottomNavItem(
-                route = SettingsScreen(appModule.bikesDataSource, appModule.localPreferences),
+                route = SettingsScreen,
                 selectedIcon = Res.drawable.settings_active,
                 unselectedIcon = Res.drawable.settings_inactive,
                 titleId = Res.string.settings_title
@@ -95,7 +89,7 @@ fun App(
         )
 
 
-        Navigator(BikesScreen(appModule.bikesDataSource, appModule.localPreferences)) { navigator ->
+        Navigator(SettingsScreen) { navigator ->
             Scaffold(
                 topBar = {
                     CustomTopNavigationBar(state = mainScreenState,
@@ -104,13 +98,10 @@ fun App(
                         },
                         onAddItemClick = {
                             if (navigator.lastItem.key == bottomNavItemList[0].route.key) {
-                                navigator.push(AddBikeScreen(appModule.bikesDataSource, appModule.localPreferences))
+                                navigator.push(AddBikeScreen())
                             } else {
                                 navigator.push(
                                     AddRideScreen(
-                                        ridesDataSource = appModule.ridesDataSource,
-                                        bikesDataSource = appModule.bikesDataSource,
-                                        preferencesRepo = appModule.localPreferences
                                     )
                                 )
                             }

@@ -14,8 +14,10 @@ import settings.domain.KMPPreference
 
 actual class PlatformModule {
     actual val modules = module {
-        single { NativeSqliteDriver(BikesDatabase.Schema, "bikes.db") }
-        single { BikesDatabase(get()) }
+        single {
+            val driver = NativeSqliteDriver(BikesDatabase.Schema, "bikes.db")
+            BikesDatabase(driver)
+        }
 
         factory { AddBikeViewModel(get(), get(), get()) }
         factory { BikeDetailViewModel(get(), get()) }
