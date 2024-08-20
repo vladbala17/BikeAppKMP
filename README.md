@@ -38,7 +38,7 @@ Presentation layer: Jetpack Compose, View Model, Compose Navigation, Material3 a
 
 Domain layer: HILT for dependency injection, Work Manager for background work, Coroutines for asynchronous tasks
 
-Data layer: Room database, Kotlin Flow
+Data layer: SQL delight database, Kotlin Flow
 
 
 
